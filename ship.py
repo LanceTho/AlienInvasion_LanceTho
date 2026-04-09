@@ -31,6 +31,10 @@ class Ship():
 
         self.image = pygame.image.load(self.settings.ship_file)
         self.image = pygame.transform.scale(self.image, (self.settings.ship_width, self.settings.ship_height))
+        self.image_up = self.image
+        self.image_down = pygame.transform.flip(self.image, False, True)
+        self.image_left = pygame.transform.rotate(self.image, 90)
+        self.image_right = pygame.transform.flip(self.image_left, True, False)
 
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.boundaries.midbottom
@@ -79,3 +83,15 @@ class Ship():
             bool: True if it did fire and False if it didn't
         """
         return self.arsenal.fire_bullet()
+
+    def orient(self) -> None:
+        """Orients the ship based on it's movement
+        """
+        if self.moving_down:
+            self.image = self.image_down
+        elif self.moving_up:
+            self.image = self.image_up
+        elif self.moving_left:
+            self.image = self.image_left
+        elif self.moving_right:
+            self.image = self.image_right

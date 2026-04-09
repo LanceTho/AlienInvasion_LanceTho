@@ -62,16 +62,20 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+            self.ship.orient()
         elif event.key == pygame.K_SPACE:
             if self.ship.fire():
                 self.laser_sound.play()
                 self.laser_sound.fadeout(250)
         elif event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
+            self.ship.orient()
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = True
+            self.ship.orient()
         elif event.key == pygame.K_UP:
             self.ship.moving_up = True
+            self.ship.orient()
 
     def _check_keyup_events(self, event):
         """Checks if the key is not pressed down
