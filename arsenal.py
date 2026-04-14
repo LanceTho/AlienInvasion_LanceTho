@@ -36,7 +36,7 @@ class Arsenal:
         """Checks if the bullet is off screen and deletes if it is
         """
         for bullet in self.arsenal.copy():
-            if bullet.rect.bottom <= 0 or bullet.rect.top >= self.settings.screen_height or bullet.rect.left <= 0 or bullet.rect.right >= self.settings.screen_width:
+            if bullet.rect.left >= self.settings.screen_width:
                 self.arsenal.remove(bullet)
 
     def draw(self) -> None:

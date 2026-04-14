@@ -31,14 +31,10 @@ class Bullet(Sprite):
 
         self.image = pygame.image.load(self.settings.bullet_file)
         self.image = pygame.transform.scale(self.image, (self.settings.bullet_width, self.settings.bullet_height))
-        self.image_up = self.image
-        self.image_down = pygame.transform.flip(self.image, False, True)
-        self.image_left = pygame.transform.rotate(self.image, 90)
-        self.image_right = pygame.transform.flip(self.image_left, True, False)
+        self.image = pygame.transform.rotate(self.image, 270)
 
         self.rect = self.image.get_rect()
         self.rect.center = game.ship.rect.center
-        self.y = self.rect.y
         self.x = self.rect.x
 
         self.ship = game.ship
@@ -46,41 +42,7 @@ class Bullet(Sprite):
     def update(self) -> None:
         """Moves the position of the bullet by a set speed
         """
-        if self.ship.facing == "up":
-            self.image = self.image_up
-            self.shoot_up()
-        elif self.ship.facing == "down":
-            self.image = self.image_down
-            self.shoot_down()
-        elif self.ship.facing == "right":
-            self.image = self.image_right
-            self.shoot_right()
-        elif self.ship.facing == "left":
-            self.image = self.image_left
-            self.shoot_left()
-
-    def shoot_up(self):
-        """fires the bullet upwards
-        """
-        self.y -= self.settings.bullet_speed
-        self.rect.y = self.y
-    
-    def shoot_down(self):
-        """fires the bullet downwards
-        """
-        self.y += self.settings.bullet_speed
-        self.rect.y = self.y
-
-    def shoot_right(self):
-        """fires the bullet to the right
-        """
         self.x += self.settings.bullet_speed
-        self.rect.x = self.x
-
-    def shoot_left(self):
-        """fires the bullet to the left
-        """
-        self.x -= self.settings.bullet_speed
         self.rect.x = self.x
 
     def draw_bullet(self) -> None:

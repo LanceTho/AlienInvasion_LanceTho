@@ -36,7 +36,6 @@ class AlienInvasion:
         self.laser_sound.set_volume(0.7)
 
         self.ship = Ship(self, Arsenal(self))
-        self.ship.image = self.ship.image_right
 
     def _check_events(self) -> None:
         """Checks for key presses that the user does
@@ -61,18 +60,10 @@ class AlienInvasion:
             self.running = False
             pygame.quit()
             sys.exit()
-        elif event.key == pygame.K_LEFT:
-            self.ship.moving_left = True
-            self.ship.orient()
-        elif event.key == pygame.K_RIGHT:
-            self.ship.moving_right = True
-            self.ship.orient()
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = True
-            self.ship.orient()
         elif event.key == pygame.K_UP:
             self.ship.moving_up = True
-            self.ship.orient()
         elif event.key == pygame.K_SPACE:
             if self.ship.fire():
                 self.laser_sound.play()
@@ -84,11 +75,7 @@ class AlienInvasion:
         Args:
             event (any): key press
         """
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
-            self.ship.moving_left = False
-        elif event.key == pygame.K_DOWN:
+        if event.key == pygame.K_DOWN:
             self.ship.moving_down = False
         elif event.key == pygame.K_UP:
             self.ship.moving_up = False

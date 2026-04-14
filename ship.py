@@ -31,21 +31,13 @@ class Ship():
 
         self.image = pygame.image.load(self.settings.ship_file)
         self.image = pygame.transform.scale(self.image, (self.settings.ship_width, self.settings.ship_height))
-        self.image_up = self.image
-        self.image_down = pygame.transform.flip(self.image, False, True)
-        self.image_left = pygame.transform.rotate(self.image, 90)
-        self.image_right = pygame.transform.flip(self.image_left, True, False)
+        self.image = pygame.transform.rotate(self.image, 270)
 
         self.rect = self.image.get_rect()
         self.rect.midleft = self.boundaries.midleft
 
-        self.moving_right = False
-        self.moving_left = False
         self.moving_down = False
         self.moving_up = False
-        self.directions = ["right", "left", "up", "down"]
-        self.facing = self.directions[0]
-        self.x = self.rect.x
         self.y = self.rect.y
         self.arsenal = arsenal
 
@@ -57,19 +49,14 @@ class Ship():
         self.arsenal.update_arsenal()
 
     def _update_ship_movement(self) -> None:
-        """Moves the ship left or right if it's still within the boundaries of the screen
+        """Moves the ship up or down if it's still within the boundaries of the screen
         """
         temp_speed = self.settings.ship_speed
-        if self.moving_right and self.rect.right < self.boundaries.right:
-            self.x += temp_speed
-        if self.moving_left and self.rect.left > self.boundaries.left:
-            self.x -= temp_speed
         if self.moving_down and self.rect.bottom < self.boundaries.bottom:
             self.y += temp_speed
         if self.moving_up and self.rect.top > self.boundaries.top:
             self.y -= temp_speed
 
-        self.rect.x = self.x
         self.rect.y = self.y
 
     def draw(self) -> None:
@@ -85,19 +72,3 @@ class Ship():
             bool: True if it did fire and False if it didn't
         """
         return self.arsenal.fire_bullet()
-
-    def orient(self) -> None:
-        """Orients the ship based on it's movement
-        """
-        if self.moving_down:
-            self.image = self.image_down
-            self.facing = self.directions[3]
-        elif self.moving_up:
-            self.image = self.image_up
-            self.facing = self.directions[2]
-        elif self.moving_left:
-            self.image = self.image_left
-            self.facing = self.directions[1]
-        elif self.moving_right:
-            self.image = self.image_right
-            self.facing = self.directions[0]
