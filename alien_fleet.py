@@ -26,28 +26,40 @@ class AlienFleet:
     def create_fleet(self) -> None:
         alien_height = self.settings.alien_height
         screen_height = self.settings.screen_height
+        alien_width = self.settings.alien_width
+        screen_width = self.settings.screen_width
 
-        fleet_height = self.calculate_fleet_size(alien_height, screen_height)
+        fleet_height, fleet_width = self.calculate_fleet_size(alien_height, screen_height, alien_width, screen_width)
 
-        # half_screen = self.settings.screen_width
+        half_screen = self.settings.screen_width//2
         fleet_vertical_space = fleet_height * alien_height
+        fleet_horizontal_space = fleet_width * alien_width
         y_offset = int((screen_height - fleet_vertical_space)//2)
+        x_offset = int((half_screen + fleet_horizontal_space)//2)
 
-        for row in range(fleet_height):
-            current_y = alien_height * row + y_offset
-            if row % 2 == 0:
-                continue
-            self._create_alien(self.settings.screen_width - 40, current_y)
+        for col in range(fleet_width):
+            current_x = alien_width * col + x_offset
+            for row in range(fleet_height):
+                current_y = alien_height * row + y_offset
+                if row % 2 == 0 or col % 2 == 0:
+                    continue
+                self._create_alien(current_x, current_y)
 
-    def calculate_fleet_size(self, alien_height: int, screen_height: int) -> int:
+    def calculate_fleet_size(self, alien_height: int, screen_height: int, alien_width: int, screen_width: int) -> tuple:
         fleet_height = (screen_height//alien_height)
+        fleet_width = ((screen_width / 2)//alien_width)
 
         if fleet_height % 2 == 0:
             fleet_height -= 1
         else:
             fleet_height -= 2
 
-        return fleet_height
+        if fleet_width % 2 == 0:
+            fleet_width -= 1
+        else:
+            fleet_width -= 2
+
+        return int(fleet_height), int(fleet_width)
     
     def _create_alien(self, current_x: int, current_y: int) -> None:
         new_alien = Alien(self, current_x, current_y)
