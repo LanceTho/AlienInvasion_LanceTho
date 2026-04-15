@@ -34,3 +34,4 @@ class Settings:
         self.alien_height = 40
         self.fleet_speed = 2
         self.fleet_direction = 1
+        self.fleet_movement_speed = 40
