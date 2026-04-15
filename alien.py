@@ -19,8 +19,8 @@ class Alien(Sprite):
 
         Args:
             game (AlienInvasion): the current game
-            x (float): _description_
-            y (float): _description_
+            x (float): x-position
+            y (float): y-position
         """
         super().__init__()
         self.fleet = fleet
@@ -49,6 +49,11 @@ class Alien(Sprite):
         self.rect.x = self.x
 
     def check_edges(self) -> bool:
+        """Checks if the alien hit the edge of the screen
+
+        Returns:
+            bool: returns true if it did, otherwise returns false
+        """
         return (self.rect.bottom >= self.boundaries.bottom or self.rect.top <= self.boundaries.top)
 
     def draw_alien(self) -> None:

@@ -2,7 +2,7 @@
 settings.py
 Lance Thongsavanh
 This file houses the settings for the game
-4/9/2026
+4/15/2026
 """
 
 from pathlib import Path

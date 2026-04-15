@@ -2,7 +2,7 @@
 ship.py
 Lance Thongsavanh
 This file has the Ship class
-4/9/2026
+4/15/2026
 """
 
 import pygame
@@ -41,6 +41,8 @@ class Ship():
         self.arsenal = arsenal
 
     def _center_ship(self):
+        """sets the starting position of the ship
+        """
         self.rect.midleft = self.boundaries.midleft
         self.y = self.rect.y
 
@@ -76,7 +78,15 @@ class Ship():
         """
         return self.arsenal.fire_bullet()
     
-    def check_collisions(self, other_group) -> bool:
+    def check_collisions(self, other_group: pygame.sprite.Group) -> bool:
+        """Checks if the ship hit another group
+
+        Args:
+            other_group (pygame.sprite.Group): objects it can interact with
+
+        Returns:
+            bool: returns true if it did, otherwise returns false
+        """
         if pygame.sprite.spritecollideany(self, other_group):
             self._center_ship()
             return True
