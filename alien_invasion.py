@@ -37,7 +37,7 @@ class AlienInvasion:
         self.laser_sound.set_volume(0.7)
 
         self.ship = Ship(self, Arsenal(self))
-        self.alien = Alien(self, 10, 10)
+        self.alien = Alien(self, self.settings.screen_width - 40, 10)
 
     def _check_events(self) -> None:
         """Checks for key presses that the user does
