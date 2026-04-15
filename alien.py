@@ -42,8 +42,15 @@ class Alien(Sprite):
         """Moves the alien
         """
         temp_speed = self.settings.fleet_speed
-        self.y += temp_speed
+
+        if self.check_edges():
+            self.settings.fleet_direction *= -1
+
+        self.y += temp_speed * self.settings.fleet_direction
         self.rect.y = self.y
+
+    def check_edges(self) -> bool:
+        return (self.rect.bottom >= self.boundaries.bottom or self.rect.top <= self.boundaries.top)
 
     def draw_alien(self) -> None:
         """Displays the alien
