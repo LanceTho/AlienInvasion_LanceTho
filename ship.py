@@ -38,6 +38,8 @@ class Ship():
 
         self.moving_down = False
         self.moving_up = False
+        self.moving_right = False
+        self.moving_left = False
         self.arsenal = arsenal
 
     def _center_ship(self):
@@ -45,6 +47,7 @@ class Ship():
         """
         self.rect.midleft = self.boundaries.midleft
         self.y = self.rect.y
+        self.x = self.rect.x
 
     def update(self) -> None:
         """Updates the ship's position
@@ -61,8 +64,13 @@ class Ship():
             self.y += temp_speed
         if self.moving_up and self.rect.top > self.boundaries.top:
             self.y -= temp_speed
+        if self.moving_right and self.rect.right < self.boundaries.right:
+            self.x += temp_speed
+        if self.moving_left and self.rect.left > self.boundaries.left:
+            self.x -= temp_speed
 
         self.rect.y = self.y
+        self.rect.x = self.x
 
     def draw(self) -> None:
         """Draws the ship
