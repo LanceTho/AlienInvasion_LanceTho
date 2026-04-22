@@ -2,7 +2,7 @@
 alien_invasion.py
 Lance Thongsavanh
 This is the main file for the game
-4/15/2026
+4/22/2026
 """
 
 import sys
@@ -178,6 +178,8 @@ class AlienInvasion:
             self.game_active = False
 
     def restart_game(self) -> None:
+        """restarts the entire game
+        """
         self.settings.initialize_dynamic_settings()
         self.game_stats.reset_stats()
         self.HUD.update_scores()
