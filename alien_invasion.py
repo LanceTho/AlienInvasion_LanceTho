@@ -148,6 +148,7 @@ class AlienInvasion:
 
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
+            self.settings.increase_difficulty()
 
     def _reset_level(self) -> None:
         """resets the entrie level
@@ -169,6 +170,7 @@ class AlienInvasion:
             self.game_active = False
 
     def restart_game(self) -> None:
+        self.settings.initialize_dynamic_settings()
         self._reset_level()
         self.ship._center_ship()
         self.game_active = True
